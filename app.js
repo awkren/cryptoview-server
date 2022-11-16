@@ -5,9 +5,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const dbConnect = require('./db/dbConnect');
 const User = require('./db/userModel');
+const auth = require('./auth')
 
 //execute db connection
 dbConnect();
+
+//curb cors error by adding a header here
 
 // body parser configuration
 app.use(bodyParser.json());
@@ -108,6 +111,15 @@ app.post('/login', (request, response) => {
         e,
       })
     })
+})
+
+//free endpoint
+app.get('/free-endpoint', (request, response) => {
+  response.json({ message: "You are allowed to access mt at anytime"})
+})
+//authentication endpoint
+app.get('/auth-endpoint', auth, (request, response) => {
+  response.json({ message: "You are authorized to access me now!"})
 })
 
 module.exports = app;

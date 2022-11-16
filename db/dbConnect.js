@@ -1,6 +1,6 @@
 // imports
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config({path: '.env'});
 
 async function dbConnect(){
   // using mongoose to connect to the database on mongoDB using DB_URL -- connection string

@@ -29,7 +29,6 @@ app.post('/register', (request, response) =>{
       })
 
       //save new user
-      // console.log(user)
       user
         .save()
         //return success if new user is added to database

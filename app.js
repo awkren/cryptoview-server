@@ -6,23 +6,18 @@ const bodyParser = require('body-parser');
 const dbConnect = require('./db/dbConnect');
 const User = require('./db/userModel');
 const auth = require('./auth')
+const cors = require('cors');
 
 //execute db connection
 dbConnect();
 
 //curb cors error by adding a header here
-app.use((req, res, next) => {
-  res.setHeader("Access-Controll-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  )
-  next()
-})
+app.use(cors({
+    origin: 'http://localhost:3000', // use your actual domain name (or localhost), using * is not recommended
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+    credentials: true
+}))
 
 // body parser configuration
 app.use(bodyParser.json());

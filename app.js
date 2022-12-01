@@ -30,6 +30,10 @@ app.get("/", (request, response, next) => {
 
 //register endpoint
 app.post('/register', (request, response) =>{
+  const existingUser = User.findOne({email: request.body.email});
+  // if(existingUser && Object.keys(existingUser).length()){
+  //   console.log('user already exists');
+  // }
   //hash password
   bcrypt
     .hash(request.body.password, 10)
@@ -41,6 +45,7 @@ app.post('/register', (request, response) =>{
       })
 
       //save new user
+      
       user
         .save()
         //return success if new user is added to database
